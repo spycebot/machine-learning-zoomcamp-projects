@@ -43,6 +43,7 @@ This project seeks to address that problem by providing a clear and objective me
 
 ### Data Preparation and Exploratory Data Analysis
 
+Clear initial trend: Each year, fewer and fewer people are taking the survey, while each year, the survey has more and more questions (df.describe()).
 
 ### Training of Multiple Models
 
