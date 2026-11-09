@@ -28,6 +28,23 @@ Prepare the data and doing EDA, analyze important features
 1. Bonus points for deploying the service to the cloud
 
 
+### Launching the Notebook
+
+The Jupyter Notebook for the exercises was launched by the fllowing command on the bash shell in the GitHub Codespace:
+
+@spycebot ➜ /workspaces/machine-learning-zoomcamp-projects (main) $ jupyter lab
+
+However, for the course exercises notebook, the following command is required:
+
+$ jupyter notebook
+
+Similarly, previously installed packages had to be installed one-by-one
+
+In: !pip install pandas
+In: !pip install matplotlib
+In: !pip install seaborn
+
+
 ### Considering the Problem
 
 Right now, the problem of finding an employer in the computer industry who is willing to employ me is the most interesting. 
