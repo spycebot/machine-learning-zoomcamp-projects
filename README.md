@@ -68,7 +68,21 @@ Clear initial trend: Each year, fewer and fewer people are taking the survey, wh
 - **No `Industry` in 2023**: if you train on all three years, either drop Industry or let your model handle missing values natively. XGBoost and HistGradientBoostingRegressor both do. Linear regression requires that the gaps are filled first. The `harmonise.py` function populates 2023 data industry field with `NaN`.
 - **Ordering for plots and linear models**: ORDINAL_ORDERS in the file gives the correct order for OrgSize, Age and EdLevel.
 
-#### Harmonising source data from three years
+
+#### Target Variable Candidates
+
+1. **ConvertedCompYearly: annual pay, as regression**. It is filled for 10,305 UK/EU rows in 2025. It fits our problem statement directly: given a candidate’s profile, what pay should they expect? Two pieces of preparation are needed:
+-- Predict log1p(salary). The raw values run from $1 to $18.4M, so the distribution is badly skewed.
+-- Trim implausible values. Kept to $5k–$500k, employed or contracting, and "developer by profession". That leaves 8,296 rows.
+2. **Above or below the country median: binary classification**. Comparing each salary with its own country’s median removes the dominant country effect. The question becomes whether a profile is well paid for where the person lives, which suits job seekers and gives a natural route to the classification metrics covered in the course.
+3. **`JobSat`: job satisfaction, 0–10**. It exists only in 2024 and 2025, about 10,900 UK/EU rows in 2025, with a mean of 7.2. It is posible to predict it directly or as "satisfied" (8 or above), but I expect it to be much harder to predict than salary.
+**`AIThreat` or `NewRole`**. These are interesting classification targets, but weaker for our job-seeker framing.
+
+Consideration at this stage is to ohave **salary regression** as the main task, with the **above/below-country-median** version as a second model if time allows.
+
+
+
+#### Harmonising Source Data from Three (3) Years
 
 `harmonise.py`: Written so that three years of StackOverflow survey data now produce the same 38 columns, and they combine into one table of 73,606 UK/EU rows.
 
@@ -81,18 +95,21 @@ to bring harmonise.py into the notebook.
 
 - **Rows**: Keeps only respondents in the 27 EU member states plus the UK. Pass `uk_eu_only=False` to keep every country.
 - **Kept as they are**: `year`, `Country`, `MainBranch` and `ICorPM`, with `ConvertedCompYearly` (US dollars) as the target. `Age` and `AISent` are also unchanged, except that "Prefer not to say" in `Age` becomes missing.
-- **EdLevel**: "Something else" and "Other (please specify):" become "Other".
-- **Employment**: the 2023/24 multiple answers become a single answer, with full-time employment taking priority, then contractor.
-- **OrgSize**: "2 to 9" and "10 to 19" become "Less than 20 employees", and "I don’t know" becomes missing.
-- **RemoteWork**: Reduced to Remote, Hybrid or In-person.
-- **AISelect**: Reduced to Yes or No.
-- **DevType becomes two columns: DevRole, with 21 role names shared across years, and DevFamily, with 7 broad groups.
-- **Industry**: Kept for 2024 and 2025 (confirmed the two category lists are identical) and missing for 2023.
--- WorkExp and YearsCode:
+- **`EdLevel`**: "Something else" and "Other (please specify):" become "Other".
+- **`Employment`**: the 2023/24 multiple answers become a single answer, with full-time employment taking priority, then contractor.
+- **`OrgSize`**: "2 to 9" and "10 to 19" become "Less than 20 employees", and "I don’t know" becomes missing.
+- **`RemoteWork`**: Reduced to Remote, Hybrid or In-person.
+- **`AISelect`**: Reduced to Yes or No.
+- **`DevType` becomes two columns**: `DevRole`, with 21 role names shared across years, and `DevFamily`, with 7 broad groups.
+- **Industry**: Kept for 2024 and 2025 (I confirmed the two category lists are identical) and missing for 2023.
+-- **`WorkExp` and `YearsCode`**:
 Converted to numbers, with "Less than 1 year" set to 0.5 and "More than 50 years" to 51.
--- Missing WorkExp values in 2023/24 are filled from YearsCodePro.
--- Capped at 50 (WorkExp) and 51 (YearsCode), because 2025 allows answers up to 100.
-- **Languages**: 20 `lang_*` columns, each set to 1 or 0 and missing where the respondent skipped the question. Checked that all 20 languages appear in every year.
+-- Missing `WorkExp` values in 2023/24 are filled from YearsCodePro.
+-- Capped at 50 (`WorkExp`) and 51 (`YearsCode`), because 2025 allows answers up to 100.
+- **Languages**: 20 `lang_*` columns, each set to 1 or 0 and missing where the respondent skipped the question. I checked that all 20 languages appear in every year.
+
+
+#### Notes on EDA
 
 
 ### Training of Multiple Models
