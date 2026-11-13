@@ -111,6 +111,11 @@ Converted to numbers, with "Less than 1 year" set to 0.5 and "More than 50 years
 
 #### Notes on EDA
 
+- Permutation Importance showed **Country** as the most important feature, followed by **Experience** 
+- Mutual Importance showed **Country** as the clear winner, followed by **Industry**
+- When installing SciKit-Learn, `sklearn` is deprecated. Use `scikit-learn` instead.
+- Without looking very deeply, we see that the StackOverflow survey is getting fewer repondents for the past two years, while the number of questions has increased over the same period.
+
 
 ### Training of Multiple Models
 
