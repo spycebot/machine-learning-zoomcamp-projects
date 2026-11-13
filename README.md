@@ -109,13 +109,26 @@ Converted to numbers, with "Less than 1 year" set to 0.5 and "More than 50 years
 - **Languages**: 20 `lang_*` columns, each set to 1 or 0 and missing where the respondent skipped the question. I checked that all 20 languages appear in every year.
 
 
-#### Notes on EDA
+#### A note on EDA
 
 - Permutation Importance showed **Country** as the most important feature, followed by **Experience** 
 - Mutual Importance showed **Country** as the clear winner, followed by **Industry**
 - When installing SciKit-Learn, `sklearn` is deprecated. Use `scikit-learn` instead.
 - Without looking very deeply, we see that the StackOverflow survey is getting fewer repondents for the past two years, while the number of questions has increased over the same period.
 
+
+#### A note on the "Re-encoding the categorical variables" stage from Week 6
+
+In the credit-scoring dataset, categorical columns such as `status`, `home`, `marital`, `records`, and `job` are stored as integer codes (`1 = rent`, `2 = owner`, and so on). The re-encoding step uses `.map()` to turn those codes back into readable strings. That matters for two reasons. `DictVectorizer()` one-hot encodes string values but passes numbers through unchanged. A model would also wrongly read `marital = 4` as being "greater than" `marital = 2`.
+
+The Stack Overflow survey data never had this problem. `Country`, `EdLevel`, `OrgSize`, `RemoteWork` and the others are stored as strings from the start. Our `harmonise.py` has also already done the more demanding version of this work:
+
+- It maps DevType labels from all three years onto one shared role list.
+- It reduces the multi-select Employment field to a single category.
+- It converts year values like 'Less than 1 year' and 'More than 50 years' to numbers.
+- It turns languages into binary `lang_*` columns.
+
+So the step has, in effect, already been done.
 
 ### Training of Multiple Models
 
