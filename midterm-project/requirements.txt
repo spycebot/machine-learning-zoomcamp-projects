@@ -1,0 +1,21 @@
+# Midterm project: Jobs and Employment in Technology and Computers
+# Python 3.14
+#
+# Install with:
+#   python -m venv .venv
+#   source .venv/bin/activate        # Windows: .venv\Scripts\activate
+#   pip install -r requirements.txt
+
+# Data handling
+pandas==3.1.1
+numpy==2.5.4
+
+# Modelling
+scikit-learn==1.9.1
+
+# Visualisation (EDA in the notebook)
+matplotlib==3.11.2
+seaborn==0.13.2
+
+# Running the notebook
+jupyter
