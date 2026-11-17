@@ -36,6 +36,7 @@ Install the required environment with the following commands:
     source .venv/bin/activate        # Windows: .venv\Scripts\activate
     pip install -r requirements.txt
 
+Or:
 
 ```bash
 cd midterm-project
@@ -149,8 +150,49 @@ So the step has, in effect, already been done.
 
 ### Training of Multiple Models
 
+In addition to capturing metrics for the naive baseline, we also trained and tested the following regression models:
 
-### Export Notebook to a Scipt
+1. Ridge Regression
+1. Decision tree
+1. Random Forest
+
+![Training the Decision Tree Regressor](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gtlodux7dmvmo4xkiypm5b3q/bafkreic2ses5evz5nwz2lf5ygszs7i5rjt4uzvajrdgeeca6kcqkylpppm)
+
+#### Naive Baseline
+
+**Naive Baseline** is a model that predicts the training mean for every row. Any useful model must beat this.
+
+
+#### Ridge Tegression
+
+**Ridge Regression** is Linear Regression with regularisation, as in Weeks 2 and 3, giving an interpretable linear model. We tune the regularisation strength alpha.
+
+
+#### Decision Tree
+
+**Decision Tree** is a powerful approach with the caveat that an unrestricted tree memorises the training data, so we expect severe overfitting.
+
+We tune `max_depth` and `min_samples_leaf` together, as in the coursework.
+
+![Decision Tree Fine Tuning](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gtlodux7dmvmo4xkiypm5b3q/bafkreiarmr57gtx46ayy4kg4ytmzk25kkfbdw4vulipslw5jrjjihtgukq)
+
+
+#### Random forest
+
+**Random Forest*** is an ensemble of decision trees, as in the rest of Week 6. Following the coursework, we first tune `max_depth` together with the number of trees, then tune `min_samples_leaf`.
+
+
+![Max Depth Comparison](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gtlodux7dmvmo4xkiypm5b3q/bafkreic2dpc3hut4sexoo2yq7t343m6zywlk5bcim62twistgy2v3pf2ki)
+
+
+#### Model Comparison and Selection
+
+Each model is shown with its best tuned parameters, scored on the same validation set. The test set has not been used yet.
+
+![Table Comparing Models](plate_5.jpg)
+
+
+### Export Notebook to a Script
 
 
 ### Place Model into a Web Service

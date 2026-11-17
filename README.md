@@ -133,7 +133,7 @@ So the step has, in effect, already been done.
 ### Training of Multiple Models
 
 
-### Export Notebook to a Scipt
+### Export Notebook to a Script
 
 
 ### Place Model into a Web Service
