@@ -28,6 +28,23 @@ Prepare the data and doing EDA, analyze important features
 1. Bonus points for deploying the service to the cloud
 
 
+### Dependency and Environment Management
+
+Install the required environment with the following commands:
+
+    python -m venv .venv
+    source .venv/bin/activate        # Windows: .venv\Scripts\activate
+    pip install -r requirements.txt
+
+
+```bash
+cd midterm-project
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+
 ### Launching the Notebook
 
 The Jupyter Notebook for the exercises was launched by the fllowing command on the bash shell in the GitHub Codespace:
