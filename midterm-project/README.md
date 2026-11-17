@@ -87,6 +87,23 @@ Clear initial trend: Each year, fewer and fewer people are taking the survey, wh
 - **Ordering for plots and linear models**: ORDINAL_ORDERS in the file gives the correct order for OrgSize, Age and EdLevel.
 
 
+### Feature Importance
+
+**Median Salary by Category**: The regression equivalent of the lecture's "risk ratio" tables: Each group's median salary relative to the overall median.
+
+
+**Mutual Information**: Tends to favour high-cardinality features such as Country.
+
+
+#### Permutation Importance from a Probe Model
+
+**Permutation Importance** is a quick, untuned gradient-boosting model, used only to rank features. It is not one of the candidate models.
+
+The probe is trained and scored inside the training portion of the data. The same random_state=1 splits are used in section 5, so the probe never sees the test set that the final model is scored on.
+
+![Permutation Importance](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gtlodux7dmvmo4xkiypm5b3q/bafkreie2qhpnebl7eq6hazjxudjqtskd7ew2qwdeatmyu2hxjneprbscve)
+
+
 #### Target Variable Candidates
 
 1. **ConvertedCompYearly: annual pay, as regression**. It is filled for 10,305 UK/EU rows in 2025. It fits our problem statement directly: given a candidate’s profile, what pay should they expect? Two pieces of preparation are needed:
